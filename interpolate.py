@@ -128,7 +128,8 @@ cs = m.pcolormesh(x,y,data,shading='flat',cmap=plt.cm.hot) #, norm=colors.LogNor
 
 plotLayout(m)
 plt.colorbar(cs,orientation='vertical', shrink=0.5)
-plt.title('Temperature (K), isobaric level 100 hPa. Original grid.') 
+title = msg.name + ' (' + msg.units + ')' + ' Original grid.'
+plt.title(title) 
 #plt.savefig('TempOriginal.png') # Set the output file name
 plt.show(block=False) # Show the plot in non-blocking mode 
 
@@ -140,7 +141,8 @@ plotLayout(m)
 m.drawmeridians(np.arange(0.,360.,60.),labels=[0,0,0,1])
 m.drawmeridians(np.arange(0.,360.,60.),labels=[0,0,0,1])
 plt.colorbar(cs,orientation='vertical', shrink=0.5)
-plt.title('Temperature (K), isobaric level 100 hPa. Coarse grid.')
+title = msg.name + ' (' + msg.units + ')' + ' Coarse grid.'
+plt.title(title) 
 plt.show(block=False) # Show the plot in non-blocking mode 
 
 # Plot interpolated data to original 0.25 x 0.25 degrees resolution grid with linear method
@@ -149,7 +151,8 @@ cs = m.pcolormesh(x,y,data_inperpol_linear,shading='flat',cmap=plt.cm.hot)
 
 plotLayout(m)
 plt.colorbar(cs,orientation='vertical', shrink=0.5)
-plt.title('Temperature (K), isobaric level 100 hPa. Linear interpolation.')
+title = msg.name + ' (' + msg.units + ')' + ' Linear interpolation.'
+plt.title(title) 
 plt.show(block=False)
 
 # Plot interpolated data with cubic method
@@ -158,7 +161,8 @@ cs = m.pcolormesh(x,y,data_inperpol_cubic,shading='flat',cmap=plt.cm.hot)
 
 plotLayout(m)
 plt.colorbar(cs,orientation='vertical', shrink=0.5)
-plt.title('Temperature (K), isobaric level 100 hPa. Cubic interpolation.')
+title = msg.name + ' (' + msg.units + ')' + ' Cubic interpolation.'
+plt.title(title) 
 plt.show(block=False)
 
 # Plot interpolated data with spline method
@@ -167,7 +171,8 @@ cs = m.pcolormesh(x,y,data_inperpol_spline,shading='flat',cmap=plt.cm.hot)
 
 plotLayout(m)
 plt.colorbar(cs,orientation='vertical', shrink=0.5)
-plt.title('Temperature (K), isobaric level 100 hPa. Spline interpolation.')
+title = msg.name + ' (' + msg.units + ')' + ' Spline interpolation.'
+plt.title(title) 
 plt.show(block=False)
 
 # Block main thread until all plots are closed
