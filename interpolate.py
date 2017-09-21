@@ -42,7 +42,7 @@ print 'Grid resolution:'
 resolutions = (abs(lat[0,0] - lat[1,0]), abs(lon[0,0] - lon[0,1]))
 print resolutions
 
-# We will use a coarser 5 x 5 degrees grid on which we do the interpolations
+# We will use a coarser 5 x 5 degree grid on which we will do the interpolations
 coarseDegree = 5.0
 lat_coarse, lon_coarse = np.mgrid[np.amax(lat):np.amin(lat):36j, np.amin(lon):np.amax(lon):72j]
 
@@ -56,7 +56,7 @@ x, y = m(lon,lat)
 # Coarser grid
 x_coarse, y_coarse = m(lon_coarse, lat_coarse)
 
-# Re-sample the data to the coarser grid
+# Reprocess the data to the coarser grid
 xrows_c = x_coarse.shape[0]
 xcols_c = x_coarse.shape[1]
 xy_coarse = []
@@ -97,11 +97,11 @@ for i in range(0, xrows_c):
          k = k + 1
 
 # ..... Interpolations
-# ... Linear and cubic methods
+# ... Piecewise linear and cubic spline methods
 data_inperpol_linear  = griddata(xy_coarse, data_coarse_list, (x, y), method='linear')
 data_inperpol_cubic   = griddata(xy_coarse, data_coarse_list, (x, y), method='cubic')
 
-# ... Two-dimensional spline
+# ... Bivariate spline
 tck = interpolate.bisplrep(x_coarse, y_coarse, data_coarse)
 
 x_list = []
@@ -133,7 +133,7 @@ plt.title(title)
 #plt.savefig('TempOriginal.png') # Set the output file name
 plt.show(block=False) # Show the plot in non-blocking mode 
 
-# Plot the re-sampled coarser data
+# Plot the coarser data
 plt.figure(2,figsize=(15,11))
 cs = m.pcolormesh(x_coarse,y_coarse,data_coarse,shading='flat',cmap=plt.cm.hot) #, norm=colors.LogNorm())
 
@@ -145,7 +145,7 @@ title = msg.name + ' (' + msg.units + ')' + ' Coarse grid.'
 plt.title(title) 
 plt.show(block=False) # Show the plot in non-blocking mode 
 
-# Plot interpolated data to original 0.25 x 0.25 degrees resolution grid with linear method
+# Plot interpolated data on 0.25 x 0.25 degree resolution grid with piecewise linear method
 plt.figure(3,figsize=(15,11))
 cs = m.pcolormesh(x,y,data_inperpol_linear,shading='flat',cmap=plt.cm.hot)
 
@@ -155,7 +155,7 @@ title = msg.name + ' (' + msg.units + ')' + ' Linear interpolation.'
 plt.title(title) 
 plt.show(block=False)
 
-# Plot interpolated data with cubic method
+# Plot interpolated data with cubic spline method
 plt.figure(4,figsize=(15,11))
 cs = m.pcolormesh(x,y,data_inperpol_cubic,shading='flat',cmap=plt.cm.hot)
 
@@ -165,7 +165,7 @@ title = msg.name + ' (' + msg.units + ')' + ' Cubic interpolation.'
 plt.title(title) 
 plt.show(block=False)
 
-# Plot interpolated data with spline method
+# Plot interpolated data with bivariate spline method
 plt.figure(5,figsize=(15,11))
 cs = m.pcolormesh(x,y,data_inperpol_spline,shading='flat',cmap=plt.cm.hot)
 
